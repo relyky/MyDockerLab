@@ -1,0 +1,13 @@
+﻿.release {
+  background-color: blue;
+  color: white;
+  padding: .25em;
+  border-radius: .25em;
+}
+
+.debug {
+  background-color: orange;
+  color: white;
+  padding: .25em;
+  border-radius: .25em;
+}

@@ -1,0 +1,32 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+<p>Welcome to your new app.</p>
+
+@if(DEBUG_MODE)
+{
+  <label class="debug">DEBUG_MODE</label>
+}
+@if(RELEASE_MODE)
+{
+  <label class="release">RELEASE_MODE</label>
+}
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code{
+  #if DEBUG
+  const Boolean DEBUG_MODE = true;
+  #else
+  const Boolean DEBUG_MODE = false;
+  #endif
+
+  #if RELEASE
+  const Boolean RELEASE_MODE = true;
+  #else
+  const Boolean RELEASE_MODE = false;
+  #endif
+
+}

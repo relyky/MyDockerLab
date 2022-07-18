@@ -1,0 +1,62 @@
+﻿@page "/fetchdata"
+@inject WeatherForecastService bizSvc
+
+<PageTitle>Weather forecast</PageTitle>
+
+<h1>Weather forecast</h1>
+<p>This component demonstrates fetching data from a service.</p>
+<p>自MyBiz.dll模組查取資料。</p>
+<button class="btn btn-primary" @onclick=RefreshData>刷新資料</button>
+
+@if (f_loading)
+{
+  <p><em>Loading...</em></p>
+}
+else
+{
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Temp. (C)</th>
+        <th>Temp. (F)</th>
+        <th>Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var item in dataList)
+      {
+        <tr>
+          <td>@item.Date.ToShortDateString()</td>
+          <td>@item.TemperatureC</td>
+          <td>@item.TemperatureF</td>
+          <td>@item.Summary</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+@code {
+  bool f_loading = false;
+  List<WeatherForecast> dataList = new List<WeatherForecast>();
+
+  protected override async Task OnInitializedAsync()
+  {
+    base.OnInitialized();
+    await RefreshData();
+  }
+
+  async Task RefreshData()
+  {
+    try
+    {
+      f_loading = true;
+      dataList = await Task.Run(() => bizSvc.GetForecast(DateTime.Now));
+    }
+    finally
+    {
+      f_loading = false;
+    }
+  }
+}
